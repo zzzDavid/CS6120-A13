@@ -43,8 +43,16 @@ As the result, the output program is a simplified version of the input Python fu
 
 ## Implementation
 
-The idea of synthesizing a minimum program is traversing the search space of `n` instructions, `n` starts from 1 and ranges to a preset maximum number. We enumerate all combinations of instruction choices and formulate a proof problem for each.
+The idea of synthesizing a minimum program is traversing the search space of `n` instructions, with `n` ranging from 1 to a preset maximum number of instruction. 
+
+We enumerate all combinations of instruction choices and formulate a proof problem for each program.
 For each enumerated program in the search space, we use `hole` variables to encode the operands. We use Z3 SMT solver to solve the proof problem, and keep traversing and increasing `n` until the solver outputs a valid solution. 
+
+There are four steps: 
+1. Build an AST for the Python function, and create a Z3 expression from the AST.
+2. Start from `n=1` and enumerate all possible programs in the search space, formulate a problem for each.
+3. Increase `n` until Z3 outputs a valid solution or reaches the maximum of `n`.
+4. Convert the output program to Bril's json format.
 
 ### Encoding argument choices
 
