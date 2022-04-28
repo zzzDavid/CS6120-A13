@@ -228,7 +228,7 @@ def main():
     
     def f(x):
         a = x + 8
-        c = a * 1
+        c = a * 2
         return c
 
     tree, holes = superoptimize(f, ['x'])
