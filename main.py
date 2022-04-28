@@ -190,18 +190,6 @@ def synthesize(tree1, tree2):
     # Solve the constraint.
     return solve(goal)
 
-
-# def ex2(source):
-#     src1, src2 = source.strip().split('\n')
-
-#     parser = lark.Lark(GRAMMAR)
-#     tree1 = parser.parse(src1)
-#     tree2 = parser.parse(src2)
-
-#     model = synthesize(tree1, tree2)
-#     print(pretty(tree1))
-#     print(pretty(tree2, model_values(model)))
-
 def superoptimize(function, args):
     # create python function's tree
     tree1 = create_ast(function, args)
@@ -238,5 +226,4 @@ def main():
 
 
 if __name__ == '__main__':
-    # ex2(sys.stdin.read())
     main()

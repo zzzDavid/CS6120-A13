@@ -39,9 +39,17 @@ $ python main.py | bril2txt
 }
 ```
 
+As the result, the output program is a simplified version of the input Python function. A print instruction is added to display the result.
+
 ## Implementation
 
-### Encode argument choice
+The idea of synthesizing a minimum program is traversing the search space of `n` instructions, `n` starts from 1 and ranges to a preset maximum number. We enumerate all combinations of instruction choices and formulate a proof problem for each.
+For each enumerated program in the search space, we use `hole` variables to encode the operands. We use Z3 SMT solver to solve the proof problem, and keep traversing and increasing `n` until the solver outputs a valid solution. 
+
+### Encoding argument choices
+
+### Generate the search space
+
 
 ## Discussion
 
