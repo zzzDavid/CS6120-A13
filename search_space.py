@@ -51,7 +51,7 @@ class search_space(object):
                 hole_idx += 2
                 op0 = self.gen_expr_str(op, [op0, op1])
             # yield
-            print(op0)
+            yield op0
 
 # test
 # ss = search_space()

@@ -2,6 +2,7 @@ import lark
 import z3
 import sys
 from py_ast import create_ast
+from search_space import search_space
 
 # A language based on a Lark example from:
 # https://github.com/lark-parser/lark/wiki/Examples
@@ -202,14 +203,24 @@ def ex2(source):
 def superoptimize(function, args):
     # create python function's tree
     tree1 = create_ast(function, args)
-    print(tree1)
-
-    # create superoptimized tree
     parser = lark.Lark(GRAMMAR)
-    tree2 = parser.parse("x << (h1 ? x : h2)")
-    model = synthesize(tree1, tree2)
-    print(pretty(tree1))
-    print(pretty(tree2, model_values(model)))
+
+    # max length of instructions
+    max_length = 4
+    for n in range(1, max_length + 1):
+        ss = search_space()
+        for prog_candidate in ss.sample(n, args):
+            tree2 = parser.parse(prog_candidate)
+            try:
+                model = synthesize(tree1, tree2)
+                print(pretty(tree1))
+                print(pretty(tree2, model_values(model)))
+                print("done")
+                return
+            except:
+                model = None
+                print("no solution")
+   
 
 def main():
     
