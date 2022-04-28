@@ -6,15 +6,15 @@ Tiny SuperOptimizer is a program synthesis tool that generates a minimum Bril pr
 
 The idea of implementing a superoptimizer comes from this [paper](https://dl.acm.org/doi/10.1145/36177.36194). Given an instruction set, the superoptimizer finds the shortest program to compute a function. 
 
-## A Demo
+## Demo
 
 Tiny SuperOptimizer takes a Python function as input, for example:
 ```python
-def f(x):
-    a = x * 2 + 8
-    c = a * 128 + 1
-    d = c * 2 + a
-    return d
+def f(x, y):
+    a = x * 2 + y
+    b = a * 5
+    c = b * (128 // 4)
+    return c
 ```
 
 The tiny superoptimizer takes in the function and arg names as input, synthesize the minimum program and convert to Bril's json form:
@@ -29,11 +29,12 @@ The result looks like this:
 
 ```sh
 $ python main.py | bril2txt
-@main(x: int) {
-  v12: int = const 10;
-  v9: int = const 1;
-  v0: int = shl x v9;
-  v0: int = add v0 v12;
+@main(x: int, y: int) {
+  v20: int = const 160;
+  v1: int = mul v20 y;
+  v12: int = const 6;
+  v0: int = shl x v12;
+  v0: int = add v0 v1;
   print v0;
 }
 ```

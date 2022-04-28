@@ -208,7 +208,7 @@ def superoptimize(function, args):
     parser = lark.Lark(GRAMMAR)
 
     # max length of instructions
-    max_length = 4
+    max_length = 10
     for n in range(1, max_length + 1):
         ss = search_space()
         for prog_candidate in ss.sample(n, args):
@@ -226,12 +226,13 @@ def superoptimize(function, args):
 
 def main():
     
-    def f(x):
-        a = x + 8
-        c = a * 2
+    def f(x, y):
+        a = x * 2 + y
+        b = a * 5
+        c = b * (128 // 4)
         return c
 
-    tree, holes = superoptimize(f, ['x'])
+    tree, holes = superoptimize(f, ['x', 'y'])
     converter = to_bril(tree, holes)
     print(json.dumps(converter.bril_prog, indent=4))
 
