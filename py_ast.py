@@ -106,3 +106,7 @@ if __name__ == "__main__":
     ast = create_ast(f, [1, 2])
     # ast_print(ast)
     print(ast)
+
+    # let's see if we can make z3 expr
+    from main import z3_expr
+    print(z3_expr(ast))
