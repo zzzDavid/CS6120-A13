@@ -54,10 +54,26 @@ There are four steps:
 3. Increase `n` until Z3 outputs a valid solution or reaches the maximum of `n`.
 4. Convert the output program to Bril's json format.
 
-### Encoding argument choices
+The two key parts of the process are generating operand choice encodings and enumerate all cases in the search space.
+
+### Encode operand choices
+The operand of an instruction can be one of the following situations:
+- one of the input variables
+- a constant (a hole that we want to fill)
+- the result of a previous operation.
+
+We limit the instruction set to binary operations, thus we encode the operand as either one of the input variables or a constant. For example, with three inputs `x0`, `x1`, and `x2`, we encode the operand as:
+
+```
+(h2 ? (h1 ? x2 : (h0 ? x1 : x0)) : h3)
+```
+
+`h0` and `h1` select one of the input variables, and `h2` select between input variables and a constant `h3`.
 
 ### Generate the search space
 
+With the operand encoded, we can enumerate all operation combinations given the number of instruction `n`. 
+Specifically, the implementation is here: [sample(n, vars)](https://github.com/zzzDavid/CS6120-A13/blob/main/search_space.py#L35).
 
 ## Discussion
 
