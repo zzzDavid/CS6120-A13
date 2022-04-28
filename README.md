@@ -54,7 +54,7 @@ There are four steps:
 3. Increase `n` until Z3 outputs a valid solution or reaches the maximum of `n`.
 4. Convert the output program to Bril's json format.
 
-The two key parts of the process are generating operand choice encodings and enumerate all cases in the search space.
+The two key parts of the process are generating operand choice encodings and enumerating all cases in the search space.
 
 ### Encode operand choices
 The operand of an instruction can be one of the following situations:
