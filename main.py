@@ -191,16 +191,16 @@ def synthesize(tree1, tree2):
     return solve(goal)
 
 
-def ex2(source):
-    src1, src2 = source.strip().split('\n')
+# def ex2(source):
+#     src1, src2 = source.strip().split('\n')
 
-    parser = lark.Lark(GRAMMAR)
-    tree1 = parser.parse(src1)
-    tree2 = parser.parse(src2)
+#     parser = lark.Lark(GRAMMAR)
+#     tree1 = parser.parse(src1)
+#     tree2 = parser.parse(src2)
 
-    model = synthesize(tree1, tree2)
-    print(pretty(tree1))
-    print(pretty(tree2, model_values(model)))
+#     model = synthesize(tree1, tree2)
+#     print(pretty(tree1))
+#     print(pretty(tree2, model_values(model)))
 
 def superoptimize(function, args):
     # create python function's tree
@@ -215,13 +215,13 @@ def superoptimize(function, args):
             tree2 = parser.parse(prog_candidate)
             try:
                 model = synthesize(tree1, tree2)
-                print(pretty(tree1))
-                print(pretty(tree2, model_values(model)))
-                print("done")
+                # print(pretty(tree1))
+                # print(pretty(tree2, model_values(model)))
+                # print("done")
                 return tree2, model_values(model)
             except:
                 model = None
-                print("no solution")
+                # print("no solution")
 
 
 def main():
@@ -233,10 +233,7 @@ def main():
 
     tree, holes = superoptimize(f, ['x'])
     converter = to_bril(tree, holes)
-    converter.visit(converter.tree, 'v0')
-    for instr in converter.instrs:
-        print(instr)
-    print(json.dumps(converter.instrs, indent=4))
+    print(json.dumps(converter.bril_prog, indent=4))
 
 
 if __name__ == '__main__':
