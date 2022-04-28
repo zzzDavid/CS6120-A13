@@ -9,7 +9,6 @@ class ASTNode(object):
 
     def __init__(self, children):
         self.children = children
-        self.data = 'var'
 
     def __repr__(self):
         return '{}({})'.format(self.__class__.__name__, repr(self.children))
@@ -32,6 +31,12 @@ class ASTNode(object):
     def __rshift__(self, rhs):
         return Shr(self, rhs)
 
+class Var(ASTNode):
+    """A variable."""
+    def __init__(self, name):
+        super().__init__([])
+        self.data = 'var'
+        self.children = [name]
 
 class Num(ASTNode):
     """A literal number."""
@@ -86,7 +91,7 @@ class Shr(ASTNode):
 
 def create_ast(function, args):
     """Create an AST from a function."""
-    args = [Num(arg) for arg in args]
+    args = [Var(arg) for arg in args]
     return function(*args)
 
 def ast_print(tree):
@@ -103,7 +108,7 @@ if __name__ == "__main__":
         d = x - c 
         return d
 
-    ast = create_ast(f, [1, 2])
+    ast = create_ast(f, ['x', 'y'])
     # ast_print(ast)
     print(ast)
 
