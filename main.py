@@ -3,6 +3,8 @@ import z3
 import sys
 from py_ast import create_ast
 from search_space import search_space
+import json
+from to_bril import to_bril
 
 # A language based on a Lark example from:
 # https://github.com/lark-parser/lark/wiki/Examples
@@ -216,18 +218,25 @@ def superoptimize(function, args):
                 print(pretty(tree1))
                 print(pretty(tree2, model_values(model)))
                 print("done")
-                return
+                return tree2, model_values(model)
             except:
                 model = None
                 print("no solution")
-   
+
 
 def main():
     
     def f(x):
-        return x * 8
+        a = x + 8
+        c = a * 1
+        return c
 
-    superoptimize(f, ['x'])
+    tree, holes = superoptimize(f, ['x'])
+    converter = to_bril(tree, holes)
+    converter.visit(converter.tree, 'v0')
+    for instr in converter.instrs:
+        print(instr)
+    print(json.dumps(converter.instrs, indent=4))
 
 
 if __name__ == '__main__':
