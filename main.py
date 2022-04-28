@@ -200,5 +200,30 @@ def ex2(source):
     print(pretty(tree2, model_values(model)))
 
 
+# set of operations used in superoptimization
+# sorted by computation cost, from low to high
+ops = ['shr', 'shl', 'add', 'sub', 'mul', 'div']
+
+def superoptimize(function, args):
+    # create python function's tree
+    tree1 = create_ast(function, args)
+    print(tree1)
+
+    # create superoptimized tree
+    parser = lark.Lark(GRAMMAR)
+    tree2 = parser.parse("x << (h1 ? x : h2)")
+    model = synthesize(tree1, tree2)
+    print(pretty(tree1))
+    print(pretty(tree2, model_values(model)))
+
+def main():
+    
+    def f(x):
+        return x * 8
+
+    superoptimize(f, ['x'])
+
+
 if __name__ == '__main__':
-    ex2(sys.stdin.read())
+    # ex2(sys.stdin.read())
+    main()

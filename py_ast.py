@@ -50,44 +50,68 @@ class Add(ASTNode):
     """Addition."""
     
     def __init__(self, lhs, rhs):
-            super().__init__([lhs, rhs])
-            self.data = 'add'
+        if isinstance(lhs, int):
+            lhs = Num(lhs)
+        if isinstance(rhs, int):
+            rhs = Num(rhs)
+        super().__init__([lhs, rhs])
+        self.data = 'add'
 
 
 class Sub(ASTNode):
     """Subtraction."""
     
     def __init__(self, lhs, rhs):
-            super().__init__([lhs, rhs])
-            self.data = 'sub'
+        if isinstance(lhs, int):
+            lhs = Num(lhs)
+        if isinstance(rhs, int):
+            rhs = Num(rhs)
+        super().__init__([lhs, rhs])
+        self.data = 'sub'
 
 class Mul(ASTNode):
     """Multiplication."""
     
     def __init__(self, lhs, rhs):
-            super().__init__([lhs, rhs])
-            self.data = 'mul'
+        if isinstance(lhs, int):
+            lhs = Num(lhs)
+        if isinstance(rhs, int):
+            rhs = Num(rhs)
+        super().__init__([lhs, rhs])
+        self.data = 'mul'
 
 class Div(ASTNode):
     """Division."""
     
     def __init__(self, lhs, rhs):
-            super().__init__([lhs, rhs])
-            self.data = 'div'
+        if isinstance(lhs, int):
+            lhs = Num(lhs)
+        if isinstance(rhs, int):
+            rhs = Num(rhs)
+        super().__init__([lhs, rhs])
+        self.data = 'div'
 
 class Shl(ASTNode):
     """Shift left."""
     
     def __init__(self, lhs, rhs):
-            super().__init__([lhs, rhs])
-            self.data = 'shl'
+        if isinstance(lhs, int):
+            lhs = Num(lhs)
+        if isinstance(rhs, int):
+            rhs = Num(rhs)
+        super().__init__([lhs, rhs])
+        self.data = 'shl'
 
 class Shr(ASTNode):
     """Shift right."""
     
     def __init__(self, lhs, rhs):
-            super().__init__([lhs, rhs])
-            self.data = 'shr'
+        if isinstance(lhs, int):
+            lhs = Num(lhs)
+        if isinstance(rhs, int):
+            rhs = Num(rhs)
+        super().__init__([lhs, rhs])
+        self.data = 'shr'
 
 def create_ast(function, args):
     """Create an AST from a function."""
