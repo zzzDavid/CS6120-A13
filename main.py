@@ -199,11 +199,6 @@ def ex2(source):
     print(pretty(tree1))
     print(pretty(tree2, model_values(model)))
 
-
-# set of operations used in superoptimization
-# sorted by computation cost, from low to high
-ops = ['shr', 'shl', 'add', 'sub', 'mul', 'div']
-
 def superoptimize(function, args):
     # create python function's tree
     tree1 = create_ast(function, args)
